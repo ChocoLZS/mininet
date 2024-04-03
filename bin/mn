@@ -48,6 +48,8 @@ from mininet.examples.cluster import ( MininetCluster, RemoteHost,
                                        ClusterCleanup )
 from mininet.examples.clustercli import ClusterCLI
 
+from mininet.plugins import cmd_iperf_multi 
+
 
 PLACEMENT = { 'block': SwitchBinPlacer, 'random': RandomPlacer }
 
@@ -114,7 +116,7 @@ TESTS.update( all=allTest, none=nullTest, build=nullTest )
 
 # Map to alternate spellings of Mininet() methods
 ALTSPELLING = { 'pingall': 'pingAll', 'pingpair': 'pingPair',
-                'iperfudp': 'iperfUdp' }
+                'iperfudp': 'iperfUdp', cmd_iperf_multi.cmd['name']: cmd_iperf_multi.cmd['func_name'] }
 
 def runTests( mn, options ):
     """Run tests

@@ -1,11 +1,12 @@
 MININET = mininet/*.py
 TEST = mininet/test/*.py
 EXAMPLES = mininet/examples/*.py
+PLUGINS = mininet/plugins/*.py
 MN = bin/mn
 PYTHON ?= python
 PYMN = $(PYTHON) -B bin/mn
 BIN = $(MN)
-PYSRC = $(MININET) $(TEST) $(EXAMPLES) $(BIN)
+PYSRC = $(MININET) $(TEST) $(EXAMPLES) $(PLUGINS) $(BIN)
 MNEXEC = mnexec
 MANPAGES = mn.1 mnexec.1
 P8IGN = E251,E201,E302,E202,E126,E127,E203,E226,E402,W504,W503,E731

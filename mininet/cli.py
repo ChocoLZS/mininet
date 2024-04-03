@@ -41,6 +41,8 @@ from mininet.term import makeTerms, runX11
 from mininet.util import ( quietRun, dumpNodeConnections,
                            dumpPorts )
 
+from mininet.plugins import cmd_iperf_multi
+
 class CLI( Cmd ):
     "Simple command-line interface to talk to nodes."
 
@@ -263,6 +265,8 @@ class CLI( Cmd ):
         else:
             error( 'invalid number of args: iperfudp bw src dst\n' +
                    'bw examples: 10M\n' )
+
+    do_iperfmulti = cmd_iperf_multi.cli
 
     def do_intfs( self, _line ):
         "List interfaces."
