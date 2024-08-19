@@ -108,7 +108,7 @@ from mininet.util import ( quietRun, fixLimits, numCores, ensureRoot,
                            waitListening, BaseString )
 from mininet.term import cleanUpScreens, makeTerms
 
-from mininet.plugins import cmd_iperf_multi
+from mininet.plugins import cmd_iperf_multi, cmd_iperf_pb, cmd_iperf_pb_with_ping
 
 # Mininet version: should be consistent with README and LICENSE
 VERSION = "2.3.0"
@@ -850,30 +850,12 @@ class Mininet( object ):
         output( '*** Results: %s\n' % result )
         return result
 
-    def iperfSingle( self, hosts=None, udpBw='10M', period=60, port=5001):
-        """
-        Run iperf between two hosts using UDP.
-        hosts: list of hosts; if None, uses opposite hosts
-        returns: results two-element array of server and client speeds
-        """
-        if not hosts:
-            return
-        else:
-            assert len( hosts ) == 2
-        client, server = hosts
-        filename = client.name[1:] + '.out'
-        output( '*** Iperf: testing bandwidth between ' )
-        output( "%s and %s\n" % ( client.name, server.name ) )
-        iperfArgs = 'iperf -u '
-        bwArgs = '-b ' + udpBw + ' '
-        info("***start server***")
-        server.cmd( iperfArgs + '-s -i 1' + ' > /tmp/mininet/log/' + filename + '&')
-        info("***start client***")
-        client.cmd(
-            iperfArgs + '-t '+ str(period) + ' -c ' + server.IP() + ' ' + bwArgs
-            +' > /tmp/mininet/log/' + 'client' + filename +'&')
-        
+    iperfSingle = cmd_iperf_multi.iperfSingle
+    iperfSingleWithPing = cmd_iperf_pb_with_ping.iperfSingleWithPing
+
     iperfMulti = cmd_iperf_multi.net
+    iperfPb = cmd_iperf_pb.net
+    iperfPbWithPing = cmd_iperf_pb_with_ping.net
 
     def runCpuLimitTest( self, cpu, duration=5 ):
         """run CPU limit test with 'while true' processes.
